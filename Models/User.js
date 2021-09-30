@@ -50,10 +50,10 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    task_count: {
-      type: Number,
-      default: 0,
-    },
+    // task_count: {
+    //   type: Number,
+    //   default: 0,
+    // },
   },
   { timestamps: true }
 );

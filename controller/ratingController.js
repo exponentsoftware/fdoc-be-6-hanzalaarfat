@@ -24,19 +24,43 @@ exports.addRating = async (req, res) => {
       });
     }
   } else {
-    const rating = await Rating.findOne({ userId: userId });
+    const rating = await Rating.find({ userId: userId });
+    // console.log(rating);
 
     if (!rating) {
-      const existingRating = await Rating.findOneAndUpdate(
+      const existingRating = await Rating.findByIdAndUpdate(
         { todoId: todo_rating.todoId },
         { $push: { userId: userId } },
-        { $inc: { rating: rate } }
+        { $inc: { rating: rate } },
+        { new: true, runValidator: true, useFindAndModify: false }
       );
+      return res.status(201).json({
+        message: "Rated_by added successfully",
+      });
       console.log(existingRating);
     } else {
       return res.status(201).json({
         message: "already Rated_by by the user",
       });
     }
+  }
+};
+
+exports.getMostTodoRating = async (req, res) => {
+  try {
+    console.log("Here");
+    const todo = await Rating.find().sort({ rating: -1 });
+
+    console.log(todo);
+    if (!todo) {
+      res.status(404).json({
+        success: false,
+        message: `Not Found any Todo Data`,
+      });
+    }
+
+    res.status(200).json({ success: true, message: "All Todo", todo });
+  } catch (err) {
+    console.log(err);
   }
 };

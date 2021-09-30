@@ -22,6 +22,7 @@ router.post(
   userAutcontroller.requireSignin,
   todocontroller.addtodo
 );
+router.get("/todo/max", todocontroller.testmax);
 router.get("/todo/:id", todocontroller.gettodoById);
 router.put(
   "/todo/:id",
@@ -32,6 +33,5 @@ router.delete("/todo/:id", todocontroller.deletetodo);
 
 router.put("/todo/status/:id", todocontroller.updateStatus);
 router.get("/todo/completed/:id", todocontroller.allCompletedTaskPerLearner);
-router.get("/todo/max", todocontroller.usersCompletedMaxTask);
 
 module.exports = router;

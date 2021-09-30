@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const ViewSchema = new mongoose.Schema(
   {
+    view: {
+      type: Number,
+      default: 0,
+    },
     userId: [
       {
         type: mongoose.Schema.Types.ObjectId,

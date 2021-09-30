@@ -4,7 +4,7 @@ const RatingSchema = new mongoose.Schema(
     rating: {
       type: Number,
       default: 0,
-      max: [5, "Number should be less than or Equal to 5 "],
+      // max: [5, "Number should be less than or Equal to 5 "],
     },
 
     userId: [

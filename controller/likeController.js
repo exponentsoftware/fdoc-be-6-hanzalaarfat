@@ -10,6 +10,7 @@ exports.addlikes = async (req, res) => {
     const like = new Like({
       userId,
       todoId,
+      like: 1,
     });
     const liked = await like.save();
 
@@ -22,18 +23,41 @@ exports.addlikes = async (req, res) => {
       message: "Something went wrong",
     });
   } else {
-    const like = await Like.findOne({ userId: userId });
+    const like = await Like.find({ userId: userId });
 
+    console.log("chek", like, typeof like);
     if (!like) {
       const existingTodoliked = await Like.findOneAndUpdate(
         { todoId: todo_like.todoId },
-        { $push: { userId: userId } }
+        // { $push: { userId: userId } },
+        { $inc: { like: 1 } }
       );
-      console.log(existingTodoliked);
+      return res.status(201).json({
+        message: "liked_by added successfully",
+      });
     } else {
       return res.status(201).json({
         message: "already liked by the user",
       });
     }
+  }
+};
+
+exports.getMostTodoLike = async (req, res) => {
+  try {
+    console.log("Here");
+    const todo = await Like.find().sort("-like");
+
+    console.log(todo);
+    if (!todo) {
+      res.status(404).json({
+        success: false,
+        message: `Not Found any Todo Data`,
+      });
+    }
+
+    res.status(200).json({ success: true, message: "All Todo", todo });
+  } catch (err) {
+    console.log(err);
   }
 };
