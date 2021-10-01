@@ -25,13 +25,14 @@ exports.addRating = async (req, res) => {
     }
   } else {
     const rating = await Rating.find({ userId: userId });
-    // console.log(rating);
+    console.log("ratingggggg", rating.userId);
 
     if (!rating) {
-      const existingRating = await Rating.findByIdAndUpdate(
+      console.log("ratingggggg", rating.userId);
+      const existingRating = await Rating.findOneAndUpdate(
         { todoId: todo_rating.todoId },
-        { $push: { userId: userId } },
-        { $inc: { rating: rate } },
+        { $push: { userId: userId }, $inc: { rating: rate } },
+
         { new: true, runValidator: true, useFindAndModify: false }
       );
       return res.status(201).json({

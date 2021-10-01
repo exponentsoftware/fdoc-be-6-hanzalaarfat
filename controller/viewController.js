@@ -10,6 +10,7 @@ exports.addViews = async (req, res) => {
     const view = new View({
       userId,
       todoId,
+      view: 1,
     });
     const viewed = await view.save();
 
@@ -27,7 +28,7 @@ exports.addViews = async (req, res) => {
     if (!view) {
       const existingViewed = await Like.findOneAndUpdate(
         { todoId: todo_view.todoId },
-        { $push: { userId: userId } }
+        { $push: { userId: userId }, $inc: { view: 1 } }
       );
       console.log(existingViewed);
     } else {

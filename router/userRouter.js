@@ -22,7 +22,7 @@ router.post(
   userAutcontroller.requireSignin,
   todocontroller.addtodo
 );
-router.get("/todo/max", todocontroller.testmax);
+router.get("/todo/max", todocontroller.usersCompletedMaxTask);
 router.get("/todo/:id", todocontroller.gettodoById);
 router.put(
   "/todo/:id",

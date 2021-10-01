@@ -251,9 +251,8 @@ exports.usersCompletedMaxTask = async (req, res) => {
     //let userId = req.user._id; // its get from middlware
     //console.log( userId);
     console.log("UsersCompletedMaxTask part");
-    // const user = await User.find().sort({ task_count: -1 });
+    const user = await User.find().sort({ task_count: -1 });
     // const user = await User.find().sort("-task_count");
-    const user = [];
     console.log(user);
     if (!user) {
       res.status(404).json({

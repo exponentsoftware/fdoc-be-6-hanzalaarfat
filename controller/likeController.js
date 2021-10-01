@@ -26,11 +26,10 @@ exports.addlikes = async (req, res) => {
     const like = await Like.find({ userId: userId });
 
     console.log("chek", like, typeof like);
-    if (!like) {
+    if (like.length < 0) {
       const existingTodoliked = await Like.findOneAndUpdate(
         { todoId: todo_like.todoId },
-        // { $push: { userId: userId } },
-        { $inc: { like: 1 } }
+        { $push: { userId: userId }, $inc: { like: 1 } }
       );
       return res.status(201).json({
         message: "liked_by added successfully",
